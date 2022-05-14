@@ -3,16 +3,13 @@ import java.util.ArrayList;
 public class ArrayInsertion {
     public static void main(String[] args) {
         int[] nums = new int[] { 1, 0, 2, 3, 0, 4, 5, 0 };
-        printArray(nums);
+        printArray("Input",nums);
         duplicateZeros(nums);
-        printArray(nums);
         duplicateZerosV2(new int[] { 1, 0, 2, 3, 0, 4, 5, 0 });        
         duplicateZerosV3(new int[] { 1, 0, 2, 3, 0, 4, 5, 0 });
-        System.out.println("=".repeat(50));
         nums = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-        printArray(nums);
+        printArray("Input",nums);
         duplicateZeros(nums);
-        printArray(nums);
     }
 
     static void duplicateZeros(int[] nums) {
@@ -28,6 +25,7 @@ public class ArrayInsertion {
                 i++;
             }
         }
+        printArray("Vanilla", nums);
     }
 
     static void duplicateZerosV2(int[] nums) {
@@ -42,7 +40,7 @@ public class ArrayInsertion {
         for (int i = 0; i < size; i++) {
             nums[i] = numArray.get(i);
         }
-        printArray(nums);
+        printArray("V2", nums);
     }
 
     static void duplicateZerosV3(int[] nums) {
@@ -70,11 +68,11 @@ public class ArrayInsertion {
                 nums[j + possibleZeroes] = nums[j];
             }
         }
-        printArray(nums);
+        printArray("V3", nums);
     }
 
-    static void printArray(int[] nums) {
-        System.out.print("[");
+    static void printArray(String name,int[] nums) {
+        System.out.print(String.format("%s : [", name));
         for (int i = 0; i < nums.length; i++) {
             if (i == nums.length - 1) {
                 System.out.print(nums[i]);
