@@ -16,7 +16,7 @@ public class ArrayMerge {
         System.out.println("=".repeat(50));
         mergeArrayV2(new int[] { 1, 2, 3, 0, 0, 0 }, new int[] { 2, 5, 6 }, 3, 3);
         System.out.println("=".repeat(50));
-        mergeArrayV2(new int[] { 0 }, new int[] { 2 }, 0, 1);
+        mergeArrayV2(new int[] { 2, 0 }, new int[] { 1 }, 1, 1);
     }
 
     static void mergeArray(int[] nums1, int[] nums2, int m, int n) {
@@ -53,15 +53,18 @@ public class ArrayMerge {
     static void mergeArrayV2(int[] nums1, int[] nums2, int m, int n) {
         Helper.printArray("Input", nums1);
         Helper.printArray("Input", nums2);
-        int size = m + n;
-        int[] newCopy = new int[m];
-        for (int i = 0; i < m; i++) {
-            newCopy[i] = nums1[i];
-        }
-        int p1 = 0, p2 = 0;
-        for (int p = 0; p < nums1.length; p++) {
-            if (p1 < m) {
-
+        if (n > 0) {
+            int[] newCopy = new int[m];
+            for (int i = 0; i < m; i++) {
+                newCopy[i] = nums1[i];
+            }
+            int p1 = 0, p2 = 0;
+            for (int p = 0; p < (m + n); p++) {
+                if (p1 < m && newCopy[p1] < nums2[p2]) {
+                    nums1[p] = newCopy[p1++];
+                } else {
+                    nums1[p] = nums2[p2++];
+                }
             }
         }
         Helper.printArray("V2", nums1);
