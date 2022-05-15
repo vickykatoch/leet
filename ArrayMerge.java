@@ -60,7 +60,7 @@ public class ArrayMerge {
             }
             int p1 = 0, p2 = 0;
             for (int p = 0; p < (m + n); p++) {
-                if (p1 < m && newCopy[p1] < nums2[p2]) {
+                if( p2>=n || (p1 < m && newCopy[p1] < nums2[p2])) {
                     nums1[p] = newCopy[p1++];
                 } else {
                     nums1[p] = nums2[p2++];
