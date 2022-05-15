@@ -2,31 +2,41 @@
 class MaxConsecutiveOnes {
 
     public static void main(String[] args) {
-        System.out.println(findMaxConsectiveCount(new int[] { 1, 1, 0, 1, 1, 1 }));
-        System.out.println(findMaxConsectiveCount(new int[] { 1, 1, 1, 1, 0, 1 }));
-        System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedBrute(new int[] { 1, 0, 1, 1, 0, 1 }));
+        // System.out.println(findMaxConsectiveCount(new int[] { 1, 1, 0, 1, 1, 1 }));
+        // System.out.println(findMaxConsectiveCount(new int[] { 1, 1, 1, 1, 0, 1 }));
+        // System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedBrute(new int[] { 1, 0, 1, 1, 0, 1 }));
 
-        System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindow(new int[] { 1, 0, 1, 1, 0 }));
-        System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindow(new int[] { 1, 0, 0, 1, 0, 1 }));
-        System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindow(new int[] { 1, 0, 0, 1, 0, 1, 0 }));
+        // System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindow(new int[] { 1, 0, 1, 1, 0 }));
+        // System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindow(new int[] { 1, 0, 0, 1, 0, 1 }));
+        // System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindow(new int[] { 1, 0, 0, 1, 0, 1, 0 }));
 
-        System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindow(new int[] {
-                1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1
-        }));
+        // System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindow(new int[] {
+        //         1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1
+        // }));
 
-        System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] { 1, 0, 1, 1, 0 }));
-        System.out
-                .println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] { 1, 0, 0, 1, 0, 1 }));
-        System.out.println(
-                findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] { 1, 0, 0, 1, 0, 1, 0 }));
+        // System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] { 1, 0, 1, 1, 0 }));
+        // System.out
+        //         .println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] { 1, 0, 0, 1, 0, 1 }));
+        // System.out.println(
+        //         findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] { 1, 0, 0, 1, 0, 1, 0 }));
 
-        System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] {
-                1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1
-        }));
+        // System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] {
+        //         1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1
+        // }));
 
-        System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] {
-                1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1
-        }));
+        // System.out.println(findMaxConsectiveCountWhenSingleZeroFlippedSlidingWindowOpt1(new int[] {
+        //         1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1
+        // }));
+
+        // System.out.println(findMaxConsectiveCountWhenKZeroFlipped(new int[] {
+        //         1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0
+        // }, 2));
+
+        System.out.println(findMaxConsectiveCountWhenKZeroFlipped(new int[] {
+            // 0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,0
+            0,0,1,1,0,0,1,1,1,0,1,0,0,0,0,1,1,1,0
+        }, 3));
+
     }
 
     static int findMaxConsectiveCount(int[] arr) {
@@ -95,5 +105,29 @@ class MaxConsecutiveOnes {
             longestSeq = Math.max(longestSeq, right + left + seenZero);
         }
         return longestSeq;
+    }
+
+    static int findMaxConsectiveCountWhenKZeroFlipped(int[] nums, int k) {
+        int left = 0, right;
+        for (right = 0; right < nums.length; right++) {
+            // If we included a zero in the window we reduce the value of k.
+            // Since k is the maximum zeros allowed in a window.
+
+            if (nums[right] == 0) k--;
+            if (k < 0 && nums[left++]==0) k++;
+
+            // if (nums[right] == 0) {
+            //     k--;
+            // }
+            
+            // A negative k denotes we have consumed all allowed flips and window has
+            // more than allowed zeros, thus increment left pointer by 1 to keep the window size same.
+            // if (k < 0) {
+            //     // If the left element to be thrown out is zero we increase k.
+            //     k += 1 - nums[left];
+            //     left++;
+            // }
+        }     
+        return right - left;
     }
 }
