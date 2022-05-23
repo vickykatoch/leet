@@ -37,6 +37,7 @@ public class ArraySearch {
         System.out.println(String.format("Exists : %b", searchIfNWithDoubleExistsV1(new int[] {
                 10, 2, 5, 3
         })));
+        
 
         System.out.println(String.format("Exists : %b", searchIfNWithDoubleExistsV1(new int[] {
                 10, 4, 9, 3
